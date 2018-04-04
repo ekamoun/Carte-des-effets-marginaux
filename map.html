@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Les accidents de la route de 2005 à 2016</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content='' name='description' />
+    <meta content='' name='author' />
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/tooltipster.css"/>
+    <link rel="stylesheet" href="css/custom.css?v=1.11111111111"/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+  <!--  <h1>Les accidents de la route en France métropolitaine de 2005 à 2016</h1> -->
+    <div class='container'>
+      <div class='row'>
+
+        <div class='col-md-12'>
+          <noscript>
+            <div class='alert alert-info'>
+              <h4>Your JavaScript is disabled</h4>
+              <p>Please enable JavaScript to view the map.</p>
+            </div>
+          </noscript>
+          <div id='map_canvas'></div>
+          <div class='controler'>
+
+            <div class='well'>
+
+             <p >
+                <input  class='form-control' id='search_address' placeholder='Entrez une adresse' type='text' />
+              </p>
+              <a class='btn btn-primary' id='search' href='#'>
+                <i class='glyphicon glyphicon-search'></i>
+                
+              </a> 
+
+
+              <a class='btn btn-default' id='reset' href='#'>
+                <i class='glyphicon glyphicon-repeat'></i>
+              </a>
+              <div id="partage-adresse"></div>
+              <div id="filters">
+                <div id="accordion">
+                 
+                  <h3>
+                    Variables
+                  </h3>
+                  <div>
+
+                    <ul class='inputs-list unstyled'>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='atm'  />
+                         <span class='tooltip filter-meteo' ></span>
+                         <span class="label tooltip" title="Pluviométrie croissante">Météo</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='lumiere'  />
+                         <span class='tooltip filter-lumiere' ></span>
+                         <span class="label tooltip" title="lumière">Lumière</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='age' />
+                         <span class='tooltip filter-age' ></span>
+                         <span class="label tooltip" title="Âge">Âge</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='agglomeration' />
+                         <span class='tooltip filter-age3'> </span>
+                         <span class="label tooltip" title="Agglomération">Agglomération</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='sexe' />
+                         <span class='tooltip filter-age4' ></span>
+                         <span class="label tooltip" title="Sexe">Sexe</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='trajet1' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Domicile-Travail">Trajet: domicile-travail</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='trajet2' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Domicile-École">Trajet: domicile-école</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='trajet4' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Utlisation professionnelle">Trajet: utlisation professionnelle</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='trajet5' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Promenade">Trajet: promenade</span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='catu' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Piéton et conducteur">Catégorie de l'usager </span>
+                       </label>
+                     </li>
+                     
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='weekend' />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Weekend">Weekend </span>
+                       </label>
+                     </li>
+                     <li>
+                       <label class='radio inline'>
+                         <input type='radio' name='types' id='catv />
+                         <span class='tooltip filter-age5' ></span>
+                         <span class="label tooltip" title="Catégorie des véhicules">Catégorie des véhicules</span>
+                       </label>
+                     </li>
+
+                   </ul>
+                 </div>
+                  <h4>Gravité</h4>
+          <ul class='inputs-list unstyled'>
+            <li><span id="label-blue"><label for='grv1'><input type='checkbox' id='grv1' />Indemne</label></span></li>
+            <li><span id="label-blue"><label for='grv2'><input type='checkbox' id='grv2' />Bléssé léger</label></span></li>
+            <li><span id="label-green"><label for='grv3'><input type='checkbox' id='grv3' />Blessé grave</label></span></li>
+            <li><span id="label-yellow"><label for='grv4'><input type='checkbox' id='grv4' />Tué</label></span></li>
+          </ul> 
+				 
+            <!--   <div class="bouton">
+                <input type="button" value="Bouton" />
+              </div>-->
+                </div>
+              </div>
+            </div> 
+
+          </div>
+                <img src="image.jpg"  />     
+        </div>
+      </div>
+
+   
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.address.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places&v=3.14"></script>
+    <script type="text/javascript" src="js/jquery.geocomplete.min.js"></script>
+    <script type="text/javascript" src="js/maps_lib.js?v=1.111111111111"></script>
+    <script type="text/javascript" src="js/jquery.tooltipster.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+
+    <script>
+    $(document).ready(function() {
+     $('.tooltip').tooltipster();
+    });
+    </script>
+    <script>
+    $(function() {
+      $("#accordion").accordion();
+    });
+    </script>
+
+
+    <script type='text/javascript'>
+      //<![CDATA[
+        $(window).resize(function () {
+          var h = $(window).height(),
+            offsetTop = 105; // Calculate the top offset
+
+          $('#map_canvas').css('height', (h - offsetTop));
+        }).resize();
+
+        $(function() {
+
+          MapsLib.initialize();
+          $("#search_address").geocomplete();
+
+          $(':checkbox').click(function(){
+            MapsLib.doSearch();
+          });
+
+          $(':radio').click(function(){
+            MapsLib.doSearch();
+          });
+
+          $(':button').click(function(){
+            MapsLib.clearSearch();
+          });
+
+          $('#search_radius').change(function(){
+            MapsLib.doSearch();
+          });
+
+          $('#search').click(function(){
+            MapsLib.doSearch();
+          });
+
+          $('#find_me').click(function(){
+            MapsLib.findMe();
+            return false;
+          });
+
+          $('#reset').click(function(){
+            $.address.parameter('address','');
+            MapsLib.clearSearch();
+            MapsLib.initialize();
+            return false;
+          });
+
+          $(":text").keydown(function(e){
+              var key =  e.keyCode ? e.keyCode : e.which;
+              if(key == 13) {
+                  $('#search').click();
+                  return false;
+              }
+          });
+        });
+      //]]>
+    </script>
+    <script>
+    $(document).ready(function() {
+      var getParameter = function () {
+        var url = window.location.href;
+        var endofurl = url.split("?");
+        return (endofurl.length > 1) ? endofurl[1] : ""; 
+      }
+      var param = getParameter();
+      var urlpartage = 'http://www.rue89.com/node/253113?address=' + param ;
+      var urlpartageencode = encodeURIComponent(urlpartage);
+      if(param != "") {
+        $('#partage-adresse').html('<a href="' + urlpartage + '" target="_blank"><img src="images/icone_lien.jpg" />Lien vers ce lieu</a>' + '<a href="https://twitter.com/intent/tweet?text=Les+accidents+de+la+route+dans+ma+région+en+2012%2C+une+carte+de+%40Rue89&url=' + urlpartageencode + '" target="_blank"><img src="images/icone_twitter.jpg" />Tweetez-le</a>' + '<a href="https://www.facebook.com/sharer/sharer.php?u=' + urlpartageencode + '" target="_blank"><img src="images/icone_facebook.jpg" />Publiez sur Facebook</a>');  
+      } else {};
+
+      $('#search').click(function() {
+        var param = $('#search_address').val();
+        var paramencode = encodeURIComponent(param).replace(/%20/g,'');
+        console.log(paramencode);
+        var urlpartage = 'http://www.rue89.com/node/253113?address=' + paramencode ;
+        var urlpartageencode = 'http%3A%2F%2Fwww.rue89.com%2Fnode%2F253113%3Faddress%3D' + paramencode ;
+        $('#partage-adresse').html('<a href="' + urlpartage + '" target="_blank"><img src="images/icone_lien.jpg" />Lien vers ce lieu</a>' + '<a href="https://twitter.com/intent/tweet?text=Les+accidents+de+la+route+dans+ma+région+en+2012%2C+une+carte+de+%40Rue89&url=' + urlpartageencode + '" target="_blank"><img src="images/icone_twitter.jpg" />Tweetez-le</a>' + '<a href="https://www.facebook.com/sharer/sharer.php?u=' + urlpartageencode + '" target="_blank"><img src="images/icone_facebook.jpg" />Publiez sur Facebook</a>');  
+      }) 
+    });
+    </script>
+</html>
+<!--
+https://twitter.com/intent/tweet?text=bolo&url=http%3A%2F%2Fwww.rue89.com
+  -->
